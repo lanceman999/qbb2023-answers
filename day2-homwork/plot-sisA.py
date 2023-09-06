@@ -43,16 +43,16 @@ expression_m = data[row_m, cols_m]
 #x = samples[cols]
 y = expression
 y_m = expression_m
-
+y_m2 = 2*expression_m
 
 x = [10, 11, 12, 13, "14A","14B", "14C", "14D"]
 
 # Plot data
 fig, ax = plt.subplots()
 ax.set_title("sisA(FBtr0073461) Female & Male")
-ax.plot(x,y, c = "red")
-ax.plot(x,y_m, c = "blue")
-#ax.plot(x,y_m2, c = "light blue")
+ax.plot(x,y, c = "red", label = "Female")
+ax.plot(x,y_m, c = "blue", label = "Male")
+ax.plot(x,y_m2, c = "green", label = "2*Male")
 ax.set_xlabel("Developmental Stage")
 ax.set_ylabel("mRNA Expression")
 ax.set_ylim(0,250)
@@ -62,6 +62,6 @@ plt.xticks(rotation = 90)
 plt.tight_layout()
 plt.show()
 
-
-fig.savefig("FBtr0073461_addedMaleData.png")
+ax.legend()
+fig.savefig("FBtr0073461_final.png")
 plt.close(fig)

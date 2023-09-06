@@ -20,28 +20,42 @@ for i in range(len(transcripts)):
     if transcripts[i] == 'FBtr0073461':
         row = i
 
+for i in range(len(transcripts)):
+    if transcripts[i] == 'FBtr0073461':
+        row_m = i
+
 # Find columns with samples of interest
 cols = []
 for i in range(len(samples)):
     if "female" in samples[i]:
         cols.append(i)
 
+cols_m = []
+for i in range(len(samples)):
+    if "male" in samples[i] and "female" not in samples[i]:
+        cols_m.append(i)
+
 # Subset data of interest
 expression = data[row, cols]
+expression_m = data[row_m, cols_m]
 
 # Prepare data
 #x = samples[cols]
 y = expression
+y_m = expression_m
 
 
 x = [10, 11, 12, 13, "14A","14B", "14C", "14D"]
 
 # Plot data
 fig, ax = plt.subplots()
-ax.set_title("sisA(FBtr0073461)")
-ax.plot(x,y)
+ax.set_title("sisA(FBtr0073461) Female & Male")
+ax.plot(x,y, c = "red")
+ax.plot(x,y_m, c = "blue")
+#ax.plot(x,y_m2, c = "light blue")
 ax.set_xlabel("Developmental Stage")
 ax.set_ylabel("mRNA Expression")
+ax.set_ylim(0,250)
 
 ax.legend()
 plt.xticks(rotation = 90)
@@ -49,5 +63,5 @@ plt.tight_layout()
 plt.show()
 
 
-fig.savefig("FBtr0073461.png")
+fig.savefig("FBtr0073461_addedMaleData.png")
 plt.close(fig)

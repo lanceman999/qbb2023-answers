@@ -1,0 +1,25 @@
+1) For any plot, explain the results you see. What might be contributing to it? What does it mean biologically?
+
+For exercise 3, where the x axis is the allele frequencies and the y-axis is the average time to fixation, an inverted parabola is observed. This makes sense as the longest time to fixation is seen when the allele frequency is close to 0.5, and when the allele frequencies are close to 0 or 1 it takes a lot less time for fixation to occur. This makes sense as an allele frequency of 0.5 would take longer to fix to a value of 0 or 1 as opposed to an allele frequency already close to 0 or 1 for the same population size. Biologically, when the allele frequency is close to 0.5, both phenotypes associated with the allele are seen in almost the same frequency, but when the allele frequency is closer to 0 or 1 the population displays one phenotype but not the other in much hgiher quantity.
+
+ 2) For any assumption in the Wright-Fisher model, how might changing that assumption affect the result? How might nature and biology violate these assumptions?
+
+ In the Wright-Fisher model, if the parameter of "no selection" was altered to where there was selection for a certain phenotype associated with an allele, the allele type (recessive or dominant) associated with the favorable phenotype would increase in frequency much faster than if there was no selection for one allele-associated phenotype over the other. Nature will likely violate this assumption because natural selection is a large driver of allele frequency based on how an allele is associated with a phenotype and the phenotype's associated fitness
+
+ 3) For any assumption in the Wright-Fisher model, how might changing that assumption affect the result? How might nature and biology violate these assumptions?
+
+If the population size was not held constant, this would affect the the time it would take for an allele to reach fixation. Populations that are larger take a longer time to reach fixation when compared to smaller populations. Nature often violates this assumption as population sizes are constantly changing, and this is seen often in bottleneck populations where branched populations of the same species may reach allele fixation more quickly due to individual smaller populations sizes. However, in these cases there are usually other parameters being modified as well such as mutation, random mating, selection etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,22 +15,15 @@ def fixation(AF,pop):
 	num_gen = len(AF_time)
 	return [AF_time, num_gen]
 
-
-
-
-results = fixation(0.3,300)
-
-x = range(0,results[1])
-y = results[0]
-
 fig, ax = plt.subplots()
-for i in range(40):
-	results = fixation(0.3,300)
-	x = range(0, results[1])
-	y = results[0]
-	ax.plot(x,y)
-ax.set_xlabel("Generations")
+tfixation = []
+for i in range(1002):
+	results = fixation(0.3,700)
+	tfixation.append(results[1])
+
+ax.hist(tfixation)
+ax.set_xlabel("Generations to Fixation for Wright Fisher Model")
 ax.set_ylabel("Allele Frequency")
-ax.set_title("Allele Freq over Time")
-fig.savefig("Exercise 2.png")
+ax.set_title("Occurance")
+fig.savefig("Exercise_2_2.png")
 plt.show()

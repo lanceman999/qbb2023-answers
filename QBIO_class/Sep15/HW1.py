@@ -79,10 +79,10 @@ print(results_f.pvalues)
 
 #Shouldn't this be a bar graph? How do we visualize the corresponding DNMs for EACH proband?
 fig, ax = plt.subplots()
-ax.hist(df_DNM.loc[df_DNM['Phase_combined'] == 'father','Proband_id'], bins = 396, label = "Father", alpha = 0.5) # 396 probands but they aren't evenly spaced because probands are not evenly ascending
-ax.hist(df_DNM.loc[df_DNM['Phase_combined'] == 'mother','Proband_id'], bins = 396, label = "Mother", alpha = 0.5)
-ax.set_xlabel("Probeband ID")
-ax.set_ylabel("Number of DNMs")
+ax.hist(q_df_DNM.loc[q_df_DNM['Phase_combined'] == 'father','Count'], bins = 20, label = "Father", alpha = 0.5) # 396 probands but they aren't evenly spaced because probands are not evenly ascending
+ax.hist(q_df_DNM.loc[q_df_DNM['Phase_combined'] == 'mother','Count'], bins = 20, label = "Mother", alpha = 0.5)
+ax.set_xlabel("DNMs")
+ax.set_ylabel("Frequency")
 ax.set_title("Number of DNMs per Probeband ID")
 fig.savefig("ex2_c.png")
 ax.legend()
@@ -93,9 +93,4 @@ print(sps.ttest_ind(
 q_df_DNM.loc[q_df_DNM['Phase_combined'] == 'father','Count'],
 q_df_DNM.loc[q_df_DNM['Phase_combined'] == 'mother','Count']
 ))
-# TtestResult(statistic=0.48218863306399373, pvalue=0.6296760642455979, df=25657.0)
-
-
-
-
-
+#TtestResult(statistic=53.40356528726923, pvalue=2.198603179308129e-264, df=790.0)

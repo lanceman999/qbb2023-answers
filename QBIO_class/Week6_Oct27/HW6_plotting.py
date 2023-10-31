@@ -8,7 +8,7 @@ import numpy as np
 # $ plink --vcf genotypes.vcf --pca 10 --out PCA_genotypes - ASK DYLAN!
 
 #### 1.2 ####
-"""
+
 PCA1 = []
 PCA2 = []
 
@@ -118,7 +118,7 @@ plt.tight_layout()
 plt.show()
 
 fig.savefig("Manhattan_plot.png")
-"""
+
 
 #### 3.3 ####
 
@@ -137,7 +137,7 @@ with open("GS451_GWAS.assoc.linear", 'r') as file:
                 SNP_GS = col[1]
         else:
             continue
-#print(SNP_GS)
+print(SNP_GS)
 
 pvalues_CB = []
 smallest_CB = 1
@@ -154,7 +154,7 @@ with open("CB1908_GWAS.assoc.linear", 'r') as file:
                 SNP_CB = col[1]
         else:
             continue
-#print(SNP_CB)
+print(SNP_CB)
 
 for line in open("genotypes.vcf",'r'):
     if line.startswith('#'):
@@ -162,8 +162,8 @@ for line in open("genotypes.vcf",'r'):
     cols = line.rstrip().split()
     if cols[2] == SNP_CB:
         CB_genotype_info = (cols[9:])
-print(CB_genotype_info)
-print(len(CB_genotype_info))
+#print(CB_genotype_info)
+#print(len(CB_genotype_info))
 
 zero_zero = []
 zero_one = []
@@ -208,5 +208,5 @@ ax.set_xlabel('Genotypes')
 ax.set_ylabel('Phenotype Values')
 ax.set_title('Box Plot of Phenotypes per Genotypes for CB451 rs10876043')
 fig.savefig("boxplot_PT_GT.png")
-plt.show()
+#plt.show()
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 # igv - double click on read - color alignment by - base modification (5mC)
 # igv - double click on read - cluster - want 2
@@ -59,6 +60,37 @@ ax1.legend()
 
 fig.savefig("Read_coverage_for_BI_ONT.png")
 fig.tight_layout()
+#plt.show()
+
+#### 3C ####
+
+ONT_meth = []
+BI_meth = []
+for line in open("ONT.cpg.chr2.bedgraph"):
+	col = line.rstrip().split()
+	ONT_meth.append(float(col[3]))
+
+for line in open("bisulfite.cpg.chr2.bedgraph"):
+	col = line.rstrip().split()
+	BI_meth.append(float(col[3]))
+
+ONT_score = []
+BI_score = []
+
+for i in range(len(ONT)):
+	if ONT[i] in BOTH:
+		ONT_score.append(ONT_meth[i])
+
+for j in range(len(BI)):
+	if BI[j] in BOTH:
+		BI_score.append(BI_meth[j])
+
+correlation = np.corrcoef(ONT_score, BI_score)
+
+fig = plt.figure()
+plt.imshow(np.log10(1+ np.histogram2d(ONT_score, BI_score, bins =100)[0]))
+plt.xlabel("ONT methylation score")
+plt.ylabel("BI methylation score")
+plt.title(f'Correlation of ONT and BI methylation scores (R= {correlation[0,1]:0.3f})')
 plt.show()
-
-
+fig.savefig("Correlation_meth_BI_ONT.png")

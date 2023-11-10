@@ -21,6 +21,7 @@ it changes epigenetic landscape altering the gene expression due to methylation
 more methylation in tumore - changes in gene expression in tumore samples due to methylation
 
 6) What does it mean for a gene to be “imprinted”?
+when it falls in love with a werewolf #teamjacob
 
 7) What is happening when you select the option to phase the reads? What is required in order to phase the reads?
 

@@ -7,6 +7,7 @@ import numpy as np
 # igv - double click on read - cluster - want 2
 
 ##### Question 3A ##### 
+
 ONT = []
 BI = []
 for line in open("ONT.cpg.chr2.bedgraph"):
@@ -94,3 +95,130 @@ plt.ylabel("BI methylation score")
 plt.title(f'Correlation of ONT and BI methylation scores (R= {correlation[0,1]:0.3f})')
 plt.show()
 fig.savefig("Correlation_meth_BI_ONT.png")
+
+
+#### 3D ####
+#!/usr/bin/env python
+
+ONT_norm = []
+ONT_tumor = []
+ONT_cov = []
+ONT_tum_cov = []
+ONT_score = []
+ONT_tum_score = []
+
+ontsite = []
+ont1site = []
+ontcoverage = []
+ont1coverage = []
+ontmeth = []
+ont1meth = []
+
+for line in open("normal.ONT.chr2.bedgraph"):
+	col = line.rstrip().split()
+	ONT_norm.append(float(col[1]))
+	ONT_score.append(float(col[3]))
+	ONT_cov.append(int(col[4]))
+
+for line in open("tumor.ONT.chr2.bedgraph"):
+	col = line.rstrip().split()
+	ONT_tumor.append(float(col[1]))
+	ONT_tum_score.append(float(col[3]))
+	ONT_tum_cov.append(int(col[4]))
+
+ONT_set = set()
+for i in range(len(ONT_norm)):
+    if ONT_norm[i] not in ONT_set:
+        ONT_set.add(ONT_norm[i])
+
+
+ONT_tum_set = set()
+for i in range(len(ONT_tumor)):
+    if ONT_tumor[i] not in ONT_tum_set:
+        ONT_tum_set.add(ONT_tumor[i])
+
+bothsite = ONT_set.intersection(ONT_tum_set)
+
+
+ONT_meth_normal = []
+ONT_meth_tum = []
+for i in range(len(ONT_norm)):
+	if ONT_norm[i] in bothsite:
+		ONT_meth_normal.append(ONT_score[i])
+
+for j in range(len(ONT_tumor)):
+	if ONT_tumor[j] in bothsite:
+		ONT_meth_tum.append(ONT_tum_score[j])
+
+change_ONT = []
+for i in range(len(ONT_meth_normal)):
+	change = ONT_meth_normal[i] - ONT_meth_tum[i]
+	if change != 0:
+		change_ONT.append(change)
+
+
+BI_norm = []
+BI_tumor = []
+BI_cov = []
+BI_tum_cov = []
+BI_score = []
+BI_tum_score = []
+
+
+for line in open("normal.bisulfite.chr2.bedgraph"):
+	col = line.rstrip().split()
+	BI_norm.append(float(col[1]))
+	BI_score.append(float(col[3]))
+	BI_cov.append(int(col[4]))
+
+for line in open("tumor.bisulfite.chr2.bedgraph"):
+	col = line.rstrip().split()
+	BI_tumor.append(float(col[1]))
+	BI_tum_score.append(float(col[3]))
+	BI_tum_cov.append(int(col[4]))
+
+BI_set = set()
+for i in range(len(BI_norm)):
+    if BI_norm[i] not in BI_set:
+        BI_set.add(BI_norm[i])
+
+
+BI_tum_set = set()
+for i in range(len(BI_tumor)):
+    if BI_tumor[i] not in BI_tum_set:
+        BI_tum_set.add(BI_tumor[i])
+
+bothsite = BI_set.intersection(BI_tum_set)
+
+BI_meth_normal = []
+BI_meth_tum = []
+for i in range(len(BI_norm)):
+	if BI_norm[i] in bothsite:
+		BI_meth_normal.append(BI_score[i])
+
+for j in range(len(BI_tumor)):
+	if BI_tumor[j] in bothsite:
+		BI_meth_tum.append(BI_tum_score[j])
+
+change_BI = []
+for i in range(len(BI_meth_normal)):
+	change_BI_stuff = BI_meth_normal[i] - BI_meth_tum[i]
+	if change_BI_stuff != 0:
+		change_BI.append(change_BI_stuff)
+
+fig, ax1= plt.subplots()
+ax1.violinplot([change_ONT, change_BI])
+ax1.set_xticks([1,2])
+ax1.set_xticklabels(['ONT', 'Bisulfite'])
+ax1.set_xlabel("Sequencing Type")
+ax1.set_ylabel("Methylation Change")
+ax1.set_title('Distribution of Methylation Changes')
+fig.savefig("violin_plot.png") 
+fig.tight_layout()
+plt.show()
+plt.close
+
+
+
+
+

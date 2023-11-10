@@ -24,7 +24,9 @@ more methylation in tumore - changes in gene expression in tumore samples due to
 when it falls in love with a werewolf #teamjacob
 
 7) What is happening when you select the option to phase the reads? What is required in order to phase the reads?
+it won't cluster
 
 8) Can any set of reads be phased? Explain your answer.
+it won't cluster
 
 

@@ -2,7 +2,8 @@
 
 Exercise 2)
 ((number of genes that were significant in steps 1 and 2) / (number of genes that were significant in steps 1 or 2)) * 100%
-30.427801353366213*
+
+= 30.427801353366213%
 
 
 firstgenelist = []

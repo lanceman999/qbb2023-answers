@@ -14,8 +14,10 @@ import matplotlib.pyplot as plt
 
 
 ### Exercise 1 ###
+
 counts_df = pd.read_csv("gtex_whole_blood_counts_formatted.txt", index_col = 0)
 metadata = pd.read_csv("gtex_metadata.txt", index_col = 0)
+
 
 counts_df_normed = preprocessing.deseq2_norm(counts_df)[0]
 counts_df_normed = np.log2(counts_df_normed + 1)
@@ -43,16 +45,17 @@ with open(output_file, mode='w', newline='') as file:
         writer.writerow([gene, results.params['SEX'], results.pvalues['SEX']])
 
 
-final_table = pd.read_csv("DE_results.csv", index_col = 0)
+final_table = pd.read_csv("DE_results.csv")
 final_table['P-Value'] = final_table['P-Value'].fillna(1.0)
 final_table['Q-Value'] = fdrcorrection(final_table['P-Value'], method='indep', alpha=0.1)[1]
 
-final_table.to_csv("./FINAL_table.csv")
-# ls -1 | wc -l FINAL_table.csv
-# 54593 rows (# of genes)
+#print(final_table)
+
+final_table.to_csv("./FINAL_table.txt", sep='\t', index = False)
 
 
 # Exercise 2
+
 dds = DeseqDataSet(
     counts=counts_df,
     metadata=metadata,
@@ -65,10 +68,29 @@ stat_res = DeseqStats(dds)
 stat_res.summary()
 results = stat_res.results_df
 results_FINAL = results.dropna(subset=['padj'])
-#print(len(results_FINAL))
-# 23877 rows (number of genes)
+results_FINAL.reset_index().to_csv('./FINAL_table_deseq2.txt', sep='\t', index=False)
 
-jaccard_index = ((54593 + (len(results_FINAL))) / (len(results_FINAL))) * 100
+firstgenelist = []
+for line in open("FINAL_table.txt"):
+	genes = line.rstrip().split('\t')[0]
+	firstgenelist.append(genes)
+#print(firstgenelist)
+
+
+des2genelist = []
+for line1 in open("FINAL_table_deseq2.txt"):
+	deseqGenes = line1.rstrip().split('\t')[0]
+	des2genelist.append(deseqGenes)
+#print(des2genelist)
+
+firstgeneset = set(firstgenelist)
+#print(firstgeneset)
+des2genelistset = set(des2genelist)
+#print(des2genelistset)
+
+intersect = firstgeneset.intersection(des2genelistset)
+#print(intersect)
+jaccard_index = (len(intersect)/(len(firstgenelist)+len(des2genelist))) * 100
 print(jaccard_index)
 
 

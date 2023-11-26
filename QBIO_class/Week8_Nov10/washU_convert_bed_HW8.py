@@ -7,6 +7,7 @@ import sys
 
 #Rscript runChicago.R ./raw/PCHIC_Data/ ./ANALYSIS/ --design-dir ./raw/Design/ --en-feat-list ./raw/Features/ --export-format washU_test
 
+
 baitfile, washU, output_name = sys.argv[1:4]
 
 bait_dict = {}
@@ -98,7 +99,40 @@ for i in range(len(YUP[0])):
 
 file.close()
 
-# [chrom[x],chromStart[x],chromEnd[x],name[x],score[x],value[x],exp[x],color[x],sourceChrom[x],sourceStart[x],sourceEnd[x],sourceName[x],sourceStrand[x],targetChrom[x],targetStart[x],targetEnd[x],targetName[x],targetStrand[x]
 
 
 # python washU_convert_bed_HW8.py /Users/cmdb/qbb2023-answers/QBIO_class/Week8_Nov10/raw/Design/h19_chr20and21.baitmap /Users/cmdb/qbb2023-answers/QBIO_class/Week8_Nov10/ANALYSIS/data/ANALYSIS_washU_text.txt /Users/cmdb/qbb2023-answers/QBIO_class/Week8_Nov10/BED_OUTPUT.bed
+
+#### Step 2.2 #### 
+filtered = []
+for line in open("/Users/cmdb/qbb2023-answers/QBIO_class/Week8_Nov10/BED_OUTPUT.bed"):
+	cols = line.rstrip().split('\t')
+	if cols[-1] == "+":
+            filtered.append(cols)
+
+sorted_rows = sorted(filtered, key=lambda x: float(x[4]), reverse = True)
+
+for row in sorted_rows[:6]:
+	print('\t'.join(row))
+	
+
+filtered = []
+for line in open("/Users/cmdb/qbb2023-answers/QBIO_class/Week8_Nov10/BED_OUTPUT.bed"):
+	cols = line.rstrip().split('\t')
+	if cols[-1] == "-": 
+            filtered.append(cols)
+
+sorted_rows = sorted(filtered, key=lambda x: float(x[4]), reverse = True)
+
+for row in sorted_rows[:6]:
+	print('\t'.join(row))
+
+
+
+
+
+
+
+
+
+
